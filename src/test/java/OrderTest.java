@@ -3,6 +3,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import pageobject.HomeScooter;
+import pageobject.OrderScooter;
 import pageobject.PagesAdresses;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -10,24 +11,32 @@ import org.junit.Assert;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(Parameterized.class)
-public class AccordionTest {
+public class OrderTest {
     private WebDriver driver;
-    private final int index;
-    private final String answer;
-    public AccordionTest(int index, String answer) {
-        this.index = index;
-        this.answer = answer;
+    private final String name;
+    private final String lastName;
+    private final String address;
+    private final String phone;
+
+    public OrderTest(String name, String lastName, String address, String phone) {
+        this.name = name;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
     }
 
     @Parameterized.Parameters
     public static Object[][] getSumData() {
         return new Object[][]{
-                {0, "Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
-                {1, "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."},
+                {"Василий",
+                 "Сизов",
+                "ул.Пушкина, д.15",
+                "+71234567887",},
+
         };
     }
     @Test
-    public void checkActivity() {
+    public void orderScooter() {
         // драйвер для браузера Chrome
         //driver = new ChromeDriver();
         // драйвер для браузера Firefox
@@ -36,9 +45,13 @@ public class AccordionTest {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         // переход на страницу тестового приложения
         driver.get(PagesAdresses.HOME);
-        HomeScooter obj = new HomeScooter(driver);
-        Assert.assertEquals(answer,obj.getAccordion(index));
-
+        HomeScooter objHome = new HomeScooter(driver);
+        objHome.clickOrderButtonTop();
+        OrderScooter objOrder = new OrderScooter(driver);
+        objOrder.fillNameField(name);
+        objOrder.fillLastNameField(lastName);
+        objOrder.fillDestinationAddress(address);
+        objOrder.fillPhoneNumber(phone);
     }
     @After
     public void teardown() {
@@ -46,3 +59,4 @@ public class AccordionTest {
         driver.quit();
     }
 }
+

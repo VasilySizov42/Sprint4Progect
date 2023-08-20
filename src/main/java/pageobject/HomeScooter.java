@@ -37,14 +37,14 @@ public class HomeScooter {
         new WebDriverWait(driver, Duration.ofSeconds(3))
             .until(ExpectedConditions.elementToBeClickable(By.tagName("button")));
         driver.findElement(orderButtonBottom).click();}
-    public void getAccordion() {
-        WebElement accElt = driver.findElement(accordion);
+    public String getAccordion(int index) {
         ((JavascriptExecutor)driver).
-                executeScript("arguments[0].scrollIntoView();", accElt);
+                executeScript("arguments[0].scrollIntoView();", driver.findElement(accordion));
 
-        List<WebElement> elements = accElt.findElements(accordionElement);
+        List<WebElement> elements = driver.findElements(accordionElement);
 
-        for (WebElement elt : elements) {
+        WebElement elt = elements.get(index);
+
             ((JavascriptExecutor)driver).
                     executeScript("arguments[0].scrollIntoView();", elt);
 
@@ -52,8 +52,6 @@ public class HomeScooter {
             System.out.println(elt.findElement(accordionButton).getText());
             new WebDriverWait(driver, Duration.ofSeconds(3))
                     .until(ExpectedConditions.visibilityOf(elt.findElement(accordionAnswer)));
-            System.out.println(elt.findElement(accordionAnswer).getText());
-        }
-
+            return elt.findElement(accordionAnswer).getText();
     }
 }
