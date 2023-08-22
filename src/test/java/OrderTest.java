@@ -17,31 +17,45 @@ public class OrderTest {
     private final String lastName;
     private final String address;
     private final String phone;
+    private final String date;
+    private final String comment;
 
-    public OrderTest(String name, String lastName, String address, String phone) {
+    public OrderTest(String name, String lastName, String address,
+                     String phone, String date, String comment) {
         this.name = name;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
+        this.date = date;
+        this.comment = comment;
     }
 
     @Parameterized.Parameters
     public static Object[][] getSumData() {
         return new Object[][]{
+//поля для заполнения: Имя, Фамилия, Адрес, Телефон, Дата(дд/мм/гггг), Комментарий
                 {"Василий",
                  "Сизов",
                 "ул.Пушкина, д.15",
-                "+71234567887",},
-
+                "+71234567887",
+                "25.08.2023",
+                "без комментариев",},
+                {"Иван",
+                 "Петров",
+                 "ул.Вагнера, д.4, корп.5",
+                 "+712345678864",
+                 "25.08.2023",
+                 "хочу самокат",},
         };
     }
     @Test
-    public void orderScooter() {
+    public void orderScooterTopBtn() {
         // драйвер для браузера Chrome
         //driver = new ChromeDriver();
         // драйвер для браузера Firefox
         driver = new FirefoxDriver();
         //System.out.println((driver.getTitle()));
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         // переход на страницу тестового приложения
         driver.get(PagesAdresses.HOME);
@@ -51,7 +65,43 @@ public class OrderTest {
         objOrder.fillNameField(name);
         objOrder.fillLastNameField(lastName);
         objOrder.fillDestinationAddress(address);
+        objOrder.checkMetroStation();
         objOrder.fillPhoneNumber(phone);
+        objOrder.clickThenButton();
+        objOrder.fillDeliveryDate(date);
+        objOrder.checkRentalPeriod();
+        objOrder.checkScooterColourBlack();
+        objOrder.fillComment(comment);
+        objOrder.clickOrderButton();
+        objOrder.clickConfirmOrderButton();
+
+    }
+    @Test
+    public void orderScooterBottomBtn() {
+        // драйвер для браузера Chrome
+        //driver = new ChromeDriver();
+        // драйвер для браузера Firefox
+        driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+        //System.out.println((driver.getTitle()));
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        // переход на страницу тестового приложения
+        driver.get(PagesAdresses.HOME);
+        HomeScooter objHome = new HomeScooter(driver);
+        objHome.clickOrderButtonBottom();
+        OrderScooter objOrder = new OrderScooter(driver);
+        objOrder.fillNameField(name);
+        objOrder.fillLastNameField(lastName);
+        objOrder.fillDestinationAddress(address);
+        objOrder.checkMetroStation();
+        objOrder.fillPhoneNumber(phone);
+        objOrder.clickThenButton();
+        objOrder.fillDeliveryDate(date);
+        objOrder.checkRentalPeriod();
+        objOrder.checkScooterColourBlack();
+        objOrder.fillComment(comment);
+        objOrder.clickOrderButton();
+        objOrder.clickConfirmOrderButton();
     }
     @After
     public void teardown() {
