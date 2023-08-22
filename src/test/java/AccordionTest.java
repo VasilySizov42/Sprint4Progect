@@ -33,7 +33,7 @@ public class AccordionTest {
         };
     }
     @Test
-    public void checkActivity() {
+    public void checkingAccordionAnswer() {
         // драйвер для браузера Chrome
         //driver = new ChromeDriver();
         // драйвер для браузера Firefox
@@ -44,7 +44,6 @@ public class AccordionTest {
         driver.get(PagesAdresses.HOME);
         HomeScooter obj = new HomeScooter(driver);
         Assert.assertEquals("Ответ в строке по индексу "+index+" не соответствует заданному!",answer,obj.getAccordion(index));
-
     }
     @After
     public void teardown() {

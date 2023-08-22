@@ -3,9 +3,9 @@ package pageobject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 public class OrderScooter {
@@ -38,9 +38,10 @@ public class OrderScooter {
     private By commentField= By.xpath("//input[@placeholder='Комментарий для курьера']");
     //Кнопка Заказать
     private By orderButton = By.xpath("//div[@class='Order_Buttons__1xGrp']//button[text()='Заказать']");
-
     //Кнопка подтверждения заказа
     private By confirmOrderButton = By.xpath("//button[text()='Да']");
+    //Модальное окно подтверждения создания заказа
+    private By modalConfirmationOrder = By.xpath("//div[@class='Order_ModalHeader__3FDaJ']");
 
     public OrderScooter (WebDriver driver){this.driver = driver;}
     public void fillNameField(String name) {
@@ -98,6 +99,9 @@ public class OrderScooter {
     public void clickConfirmOrderButton() {
         driver.findElement(confirmOrderButton).click();
         //new WebDriverWait(driver, Duration.ofSeconds(3))
-        //        .until(ExpectedConditions.elementToBeClickable(driver.findElement(rentalPeriod)));
+                //.until(ExpectedConditions.visibilityOf(driver.findElement(modalConfirmationOrder)));
+    }
+    public WebElement getModal() {
+        return driver.findElement(modalConfirmationOrder);
     }
 }

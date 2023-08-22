@@ -74,7 +74,7 @@ public class OrderTest {
         objOrder.fillComment(comment);
         objOrder.clickOrderButton();
         objOrder.clickConfirmOrderButton();
-
+        Assert.assertTrue("Окно подтверждения заказа не появилось", objOrder.getModal().isDisplayed());
     }
     @Test
     public void orderScooterBottomBtn() {
@@ -102,6 +102,7 @@ public class OrderTest {
         objOrder.fillComment(comment);
         objOrder.clickOrderButton();
         objOrder.clickConfirmOrderButton();
+        Assert.assertTrue("Окно подтверждения заказа не появилось", objOrder.getModal().isDisplayed());
     }
     @After
     public void teardown() {
