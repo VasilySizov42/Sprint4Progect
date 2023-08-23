@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import java.time.Duration;
 import java.util.List;
 
+import static pageobject.Constants.IMPL_WAIT;
+
 
 public class HomeScooter {
     private WebDriver driver;
@@ -35,24 +37,23 @@ public class HomeScooter {
         ((JavascriptExecutor)driver).
                 executeScript("arguments[0].scrollIntoView();",
                         driver.findElement(orderButtonBottom));
-        new WebDriverWait(driver, Duration.ofSeconds(3))
+        new WebDriverWait(driver, Duration.ofSeconds(IMPL_WAIT))
             .until(ExpectedConditions.elementToBeClickable(By.tagName("button")));
-        driver.findElement(orderButtonBottom).click();}
-    public String getAccordion(int index) {
+        driver.findElement(orderButtonBottom).click();
+    }
+    public List<WebElement> getAccordion() {
         ((JavascriptExecutor)driver).
                 executeScript("arguments[0].scrollIntoView();", driver.findElement(accordion));
-
-        List<WebElement> elements = driver.findElements(accordionElement);
-
-        WebElement elt = elements.get(index);
-
-            ((JavascriptExecutor)driver).
-                    executeScript("arguments[0].scrollIntoView();", elt);
-
-            elt.findElement(accordionButton).click();
-            System.out.println(elt.findElement(accordionButton).getText());
-            new WebDriverWait(driver, Duration.ofSeconds(3))
-                    .until(ExpectedConditions.visibilityOf(elt.findElement(accordionAnswer)));
-            return elt.findElement(accordionAnswer).getText();
+        return driver.findElements(accordionElement);
+    }
+    public void clickAccordionElement(WebElement accordionElement) {
+        ((JavascriptExecutor) driver).
+                executeScript("arguments[0].scrollIntoView();", accordionElement);
+        accordionElement.findElement(accordionButton).click();
+    }
+    public String getAccordionElementAnswer(WebElement accordionElement) {
+        new WebDriverWait(driver, Duration.ofSeconds(IMPL_WAIT))
+                .until(ExpectedConditions.visibilityOf(accordionElement.findElement(accordionAnswer)));
+        return accordionElement.findElement(accordionAnswer).getText();
     }
 }

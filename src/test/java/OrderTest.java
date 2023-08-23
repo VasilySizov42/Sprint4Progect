@@ -3,8 +3,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import pageobject.Constants;
 import pageobject.HomeScooter;
 import pageobject.OrderScooter;
 
@@ -16,8 +14,6 @@ import static pageobject.Constants.ORDER_OBJ_2;
 public class OrderTest {
     @Rule
     public DriverRule driverRule = new DriverRule();
-    private WebDriver driver;
-
     private final String name;
     private final String lastName;
     private final String address;
@@ -81,5 +77,6 @@ public class OrderTest {
         MatcherAssert.assertThat("Окно подтверждения заказа не появилось",
                 objOrder.getModal().getText(), startsWith(confirm));
     }
+
 }
 

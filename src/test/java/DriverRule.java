@@ -8,6 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.io.File;
 import java.time.Duration;
 
+import static pageobject.Constants.*;
+
 public class DriverRule extends ExternalResource {
     WebDriver driver;
 
@@ -15,9 +17,9 @@ public class DriverRule extends ExternalResource {
     protected void before() throws Throwable {
         if (System.getProperty("browser").equals("firefox")) setUpFirefox();
         else setUpChrome();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(25));
-        driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPL_WAIT));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(PG_LOAD_TMT));
+        driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(SCR_TMT));
         //driver.manage().window().maximize();
     }
     private void setUpFirefox(){

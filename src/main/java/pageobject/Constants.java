@@ -33,5 +33,8 @@ public class Constants {
             {7, "Да, обязательно. Всем самокатов! И Москве, и Московской области."},
     };
 
+    public static final int IMPL_WAIT = 3;
+    public static final int PG_LOAD_TMT = 25;
+    public static final int SCR_TMT = 10;
     };
 
