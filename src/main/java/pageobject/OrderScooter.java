@@ -43,7 +43,10 @@ public class OrderScooter {
     //Модальное окно подтверждения создания заказа
     private By modalConfirmationOrder = By.xpath("//div[@class='Order_ModalHeader__3FDaJ']");
 
-    public OrderScooter (WebDriver driver){this.driver = driver;}
+    public OrderScooter (WebDriver driver){
+        this.driver = driver;
+        driver.get(Constants.ORDER);
+    }
     public void fillNameField(String name) {
         driver.findElement(nameField).clear();
         driver.findElement(nameField).sendKeys(name);

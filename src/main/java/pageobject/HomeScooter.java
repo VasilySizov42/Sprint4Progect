@@ -26,6 +26,7 @@ public class HomeScooter {
     private By accordionAnswer = By.xpath(".//p");
     public HomeScooter(WebDriver driver){
         this.driver = driver;
+        driver.get(Constants.HOME);
     }
     public void clickOrderButtonTop() {
         driver.findElement(orderButtonTop).click();
