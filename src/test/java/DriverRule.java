@@ -15,8 +15,9 @@ public class DriverRule extends ExternalResource {
 
     @Override
     protected void before() throws Throwable {
-        if (System.getProperty("browser").equals("firefox")) setUpFirefox();
-        else setUpChrome();
+        //if (System.getProperty("browser").equals("firefox")) setUpFirefox();
+        //else setUpChrome();
+        setUpChrome();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPL_WAIT));
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(PG_LOAD_TMT));
         driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(SCR_TMT));
