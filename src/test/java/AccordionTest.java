@@ -3,7 +3,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import pageobject.HomeScooter;
-import pageobject.PagesAdresses;
+import pageobject.Constants;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.Assert;
@@ -41,7 +41,7 @@ public class AccordionTest {
         //System.out.println((driver.getTitle()));
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         // переход на страницу тестового приложения
-        driver.get(PagesAdresses.HOME);
+        driver.get(Constants.HOME);
         HomeScooter obj = new HomeScooter(driver);
         Assert.assertEquals("Ответ в строке по индексу "+index+" не соответствует заданному!",answer,obj.getAccordion(index));
     }
